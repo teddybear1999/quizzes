@@ -4,14 +4,14 @@ import lombok.Builder;
 import lombok.Getter;
 import pl.afranaso.quizzes.model.QuizType;
 
+import java.util.List;
+
 @Getter
 @Builder
-public class QuizDto {
-
+public class SingleQuizDto {
     private long id;
     private String description;
     private QuizType quizType;
     private int minScore;
-    private long passedCounter;
-    private int failedAttemptsCounter;
+    private List<QuizQuestionDto> quizQuestionDtos;
 }
