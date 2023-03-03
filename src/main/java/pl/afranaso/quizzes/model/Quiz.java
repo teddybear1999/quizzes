@@ -19,7 +19,8 @@ public class Quiz {
     private long id;
     private String description;
     @Enumerated(EnumType.STRING)
-    private QuizType QuizType;
+    @Column(name = "type")
+    private QuizType quizType;
     @Column(name = "min_score")
     private int minScore;
     @Column(name = "passed_counter")
