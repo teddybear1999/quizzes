@@ -25,5 +25,5 @@ public class QuizQuestion {
     private long failedAttemptsCounter;
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "question_id")
-    List<QuizAnswer> quizAnswers;
+    private List<QuizAnswer> quizAnswers;
 }
