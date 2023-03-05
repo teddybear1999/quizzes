@@ -29,7 +29,7 @@ public class Quiz {
     private int failedAttemptsCounter;
     private LocalDateTime created;
     private LocalDateTime updated;
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "quiz_id", updatable = false, insertable = false)
     private List<QuizQuestion> questions;
 }

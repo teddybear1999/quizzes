@@ -5,6 +5,7 @@ import pl.afranaso.quizzes.model.Quiz;
 
 @Component
 public class QuizDtoMapper implements Mapper<Quiz, QuizDto> {
+
     @Override
     public QuizDto mapToDto(Quiz quiz) {
         return QuizDto.builder()

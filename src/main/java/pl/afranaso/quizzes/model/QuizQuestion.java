@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "quiz_question")
@@ -19,11 +18,17 @@ public class QuizQuestion {
     @Column(name = "quiz_id")
     private long quizId;
     private String content;
+    @Column(name = "option_a")
+    private String optionA;
+    @Column(name = "option_b")
+    private String optionB;
+    @Column(name = "option_c")
+    private String optionC;
+    @Column(name = "option_d")
+    private String optionD;
+    private int answer;
     @Column(name = "passed_counter")
     private long passedCounter;
     @Column(name = "failed_attempts_counter")
     private long failedAttemptsCounter;
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "question_id")
-    List<QuizAnswer> quizAnswers;
 }
