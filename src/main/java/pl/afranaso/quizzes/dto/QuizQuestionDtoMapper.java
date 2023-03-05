@@ -4,13 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.afranaso.quizzes.model.QuizQuestion;
 
-import java.util.stream.Collectors;
-
 @Component
 @RequiredArgsConstructor
 public class QuizQuestionDtoMapper implements Mapper<QuizQuestion, QuizQuestionDto> {
-
-    private final QuizAnswerDtoMapper quizAnswerDtoMapper;
 
     @Override
     public QuizQuestionDto mapToDto(QuizQuestion quizQuestion) {
@@ -18,12 +14,11 @@ public class QuizQuestionDtoMapper implements Mapper<QuizQuestion, QuizQuestionD
                 .id(quizQuestion.getId())
                 .quizId(quizQuestion.getQuizId())
                 .content(quizQuestion.getContent())
-                .quizAnswerDtos(
-                        quizQuestion.getQuizAnswers()
-                                .stream()
-                                .map(quizAnswerDtoMapper::mapToDto)
-                                .collect(Collectors.toList())
-                )
+                .optionA(quizQuestion.getOptionA())
+                .optionB(quizQuestion.getOptionB())
+                .optionC(quizQuestion.getOptionC())
+                .optionD(quizQuestion.getOptionD())
+                .answer(0)
                 .build();
     }
 }
