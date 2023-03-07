@@ -13,8 +13,6 @@ public class QuizDtoMapper implements Mapper<Quiz, QuizDto> {
                 .description(quiz.getDescription())
                 .quizType(quiz.getQuizType())
                 .minScore(quiz.getMinScore())
-                .passedCounter(quiz.getPassedCounter())
-                .failedAttemptsCounter(quiz.getFailedAttemptsCounter())
                 .build();
     }
 }

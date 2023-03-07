@@ -23,12 +23,7 @@ public class Quiz {
     private QuizType quizType;
     @Column(name = "min_score")
     private int minScore;
-    @Column(name = "passed_counter")
-    private long passedCounter;
-    @Column(name = "failed_attempts_counter")
-    private int failedAttemptsCounter;
     private LocalDateTime created;
-    private LocalDateTime updated;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "quiz_id", updatable = false, insertable = false)
     private List<QuizQuestion> questions;

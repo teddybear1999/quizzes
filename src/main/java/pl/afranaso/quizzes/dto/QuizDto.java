@@ -12,6 +12,4 @@ public class QuizDto {
     private String description;
     private QuizType quizType;
     private int minScore;
-    private long passedCounter;
-    private int failedAttemptsCounter;
 }
