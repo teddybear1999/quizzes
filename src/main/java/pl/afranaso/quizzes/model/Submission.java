@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,11 +14,13 @@ import java.time.LocalDateTime;
 public class Submission {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private long quizId;
     private int correctAnswers;
     private int incorrectAnswers;
+    @Column(name = "is_quiz_passed")
+    private boolean isQuizPassed;
     private LocalDateTime submissionTime;
 
 }
