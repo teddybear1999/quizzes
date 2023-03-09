@@ -27,8 +27,4 @@ public class QuizQuestion {
     @Column(name = "option_d")
     private String optionD;
     private int answer;
-    @Column(name = "passed_counter")
-    private long passedCounter;
-    @Column(name = "failed_attempts_counter")
-    private long failedAttemptsCounter;
 }
