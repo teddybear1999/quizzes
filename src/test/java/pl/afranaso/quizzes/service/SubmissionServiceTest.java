@@ -38,7 +38,7 @@ class SubmissionServiceTest {
         // when
         when(quizService.getQuiz(id)).thenReturn(Optional.empty());
         // then
-        assertThatThrownBy(() -> submissionService.createSubmit(singleQuizDto))
+        assertThatThrownBy(() -> submissionService.createSubmission(singleQuizDto))
                 .isInstanceOf(QuizNotFoundException.class)
                 .hasMessage("Quiz not found with ID: " + id);
     }

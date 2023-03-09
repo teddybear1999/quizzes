@@ -22,8 +22,12 @@ public class SubmissionService {
     private final SubmissionRepository submissionRepository;
     private final QuizService quizService;
 
+    public Optional<Submission> getSubmission(long id) {
+        return submissionRepository.findById(id);
+    }
+
     @Transactional
-    public Submission createSubmit(SingleQuizDto singleQuizDto) {
+    public Submission createSubmission(SingleQuizDto singleQuizDto) {
         Optional<Quiz> optionalQuiz = quizService.getQuiz(singleQuizDto.getId());
         if (optionalQuiz.isEmpty()) {
             throw new QuizNotFoundException("Quiz not found with ID: " + singleQuizDto.getId());
