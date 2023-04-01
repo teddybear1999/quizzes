@@ -36,7 +36,7 @@ public class SubmissionService {
         int score = getScore(singleQuizDto, quiz);
         Submission submission = new Submission(
                 0L,
-                quiz.getId(),
+                singleQuizDto.getId(),
                 score,
                 quiz.getQuestions().size() - score,
                 score >= quiz.getMinScore(),

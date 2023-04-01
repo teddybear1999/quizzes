@@ -6,4 +6,5 @@ import pl.afranaso.quizzes.model.Submission;
 
 @Repository
 public interface SubmissionRepository extends JpaRepository<Submission, Long> {
+    void deleteAllByQuizId(Long quizId);
 }
