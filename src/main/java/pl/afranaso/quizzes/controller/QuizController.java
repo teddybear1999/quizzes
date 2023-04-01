@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.afranaso.quizzes.dto.QuizDto;
 import pl.afranaso.quizzes.dto.QuizDtoMapper;
@@ -17,6 +18,7 @@ import pl.afranaso.quizzes.service.QuizService;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/quizzes")
 @RequiredArgsConstructor
 public class QuizController {
 
@@ -24,13 +26,13 @@ public class QuizController {
     private final QuizDtoMapper quizDtoMapper;
     private final SingleQuizDtoMapper singleQuizDtoMapper;
 
-    @GetMapping("/quizzes")
+    @GetMapping
     public Page<QuizDto> getQuizzes(Pageable pageable) {
         return quizService.getQuizzes(pageable)
                 .map(quizDtoMapper::mapToDto);
     }
 
-    @GetMapping("/quizzes/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<SingleQuizDto> getSingleQuiz(@PathVariable long id) {
         Optional<Quiz> quiz = quizService.getQuiz(id);
         return quiz.map(value -> ResponseEntity.ok(singleQuizDtoMapper.mapToDto(value)))
