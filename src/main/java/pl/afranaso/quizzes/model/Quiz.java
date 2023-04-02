@@ -16,7 +16,7 @@ public class Quiz {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String description;
     @Enumerated(EnumType.STRING)
     @Column(name = "type")

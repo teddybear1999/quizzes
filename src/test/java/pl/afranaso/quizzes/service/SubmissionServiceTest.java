@@ -66,16 +66,7 @@ class SubmissionServiceTest {
                 new QuizQuestion(4L, id, "", "", "", "", "", 4)
         );
 
-        Quiz quiz = new Quiz(
-                id,
-                description,
-                quizType,
-                minScore,
-                passedCounter,
-                failedAttemptsCounter,
-                localDateTime,
-                questions
-        );
+        Quiz quiz = null;
 
         SingleQuizDto singleQuizDto = SingleQuizDto.builder()
                 .id(id)

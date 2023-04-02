@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import pl.afranaso.quizzes.dto.*;
 import pl.afranaso.quizzes.model.Quiz;
 import pl.afranaso.quizzes.service.QuizService;
-import pl.afranaso.quizzes.service.SubmissionService;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -22,7 +21,6 @@ import java.util.stream.Collectors;
 public class QuizController {
 
     private final QuizService quizService;
-    private final SubmissionService submissionService;
     private final QuizDtoMapper quizDtoMapper;
     private final SingleQuizDtoMapper singleQuizDtoMapper;
     private final QuizQuestionDtoMapper quizQuestionDtoMapper;
@@ -40,13 +38,18 @@ public class QuizController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PostMapping
+    public SingleQuizDto createQuiz(@RequestBody @Valid SingleQuizDto singleQuizDto) {
+        return quizService.createQuiz(singleQuizDto);
+    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<SingleQuizDto> updateQuiz(@RequestBody @Valid SingleQuizDto singleQuizDto) {
-        if (!quizService.isQuizExists(singleQuizDto.getId())) {
+    public ResponseEntity<Quiz> updateQuiz(@RequestBody @Valid SingleQuizDto singleQuizDto, @PathVariable Long id) {
+        if (!quizService.isQuizExists(id) || !id.equals(singleQuizDto.getId())) {
             return ResponseEntity.notFound().build();
         }
-        Quiz quiz = createQuizFromDtoToUpdate(singleQuizDto);
-        return ResponseEntity.ok(singleQuizDtoMapper.mapToDto(quizService.updateQuiz(quiz)));
+        Quiz quiz = createQuizFromDtoToCreateOrUpdate(singleQuizDto, id);
+        return ResponseEntity.ok(quizService.updateQuiz(quiz));
     }
 
     @DeleteMapping("/{id}")
@@ -54,9 +57,9 @@ public class QuizController {
         quizService.deleteQuiz(id);
     }
 
-    private Quiz createQuizFromDtoToUpdate(SingleQuizDto singleQuizDto) {
+    private Quiz createQuizFromDtoToCreateOrUpdate(SingleQuizDto singleQuizDto, Long id) {
         return new Quiz(
-                singleQuizDto.getId(),
+                id,
                 singleQuizDto.getDescription(),
                 singleQuizDto.getQuizType(),
                 singleQuizDto.getMinScore(),

@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @Builder
 public class SingleQuizDto {
-    private long id;
+    private Long id;
     @NotBlank
     @Length(min = 10)
     private String description;

@@ -12,9 +12,9 @@ import javax.validation.constraints.PositiveOrZero;
 public class QuizQuestionDto {
 
     @Positive
-    private long id;
+    private Long id;
     @Positive
-    private long quizId;
+    private Long quizId;
     @NotBlank
     private String content;
     @NotBlank
