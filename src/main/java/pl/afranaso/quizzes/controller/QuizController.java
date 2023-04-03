@@ -15,6 +15,8 @@ import pl.afranaso.quizzes.service.QuizService;
 import javax.validation.Valid;
 import java.util.Optional;
 
+import static pl.afranaso.quizzes.dto.validation.SingleQuizDtoValidator.validateSingleQuizDtoMinPoints;
+
 @RestController
 @RequestMapping("/quizzes")
 @RequiredArgsConstructor
@@ -39,6 +41,7 @@ public class QuizController {
 
     @PostMapping
     public SingleQuizDto createQuiz(@RequestBody @Valid SingleQuizDto singleQuizDto) {
+        validateSingleQuizDtoMinPoints(singleQuizDto);
         return quizService.createQuiz(singleQuizDto);
     }
 
@@ -47,6 +50,7 @@ public class QuizController {
         if (!quizService.isQuizExists(id) || !id.equals(singleQuizDto.getId())) {
             return ResponseEntity.notFound().build();
         }
+        validateSingleQuizDtoMinPoints(singleQuizDto);
         return ResponseEntity.ok(quizService.updateQuiz(singleQuizDto));
     }
 

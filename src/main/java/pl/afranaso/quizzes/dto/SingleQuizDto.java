@@ -6,10 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import pl.afranaso.quizzes.model.QuizType;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Getter
@@ -22,6 +19,7 @@ public class SingleQuizDto {
     @NotNull
     private QuizType quizType;
     @Positive
+    @Max(100)
     private int minScore;
     @NotNull
     @Size(min = 1)
