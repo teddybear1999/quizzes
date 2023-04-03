@@ -39,27 +39,20 @@ public class QuizService {
         return quizRepository.findById(id);
     }
 
+    @Transactional
     public SingleQuizDto createQuiz(SingleQuizDto singleQuizDto) {
         Quiz quiz = quizRepository.save(createQuizFromDto(singleQuizDto));
         List<QuizQuestion> createdQuestions = quizQuestionRepository.saveAll(mapQuestionsDtoListToQuestionEntities(singleQuizDto.getQuizQuestionDtos(), quiz.getId()));
-        return singleQuizDtoMapper.mapToDto(
-                new Quiz(
-                        quiz.getId(),
-                        quiz.getDescription(),
-                        quiz.getQuizType(),
-                        quiz.getMinScore(),
-                        quiz.getCreated(),
-                        createdQuestions,
-                        null
-                )
-        );
+        return mapCreatedOrUpdatedQuizToDto(quiz, createdQuestions);
     }
 
     @Transactional
-    public Quiz updateQuiz(Quiz quiz) {
-        submissionRepository.deleteAllByQuizId(quiz.getId());
-        quizQuestionRepository.saveAll(quiz.getQuestions());
-        return quizRepository.save(quiz);
+    public SingleQuizDto updateQuiz(SingleQuizDto toUpdate) {
+        submissionRepository.deleteAllByQuizId(toUpdate.getId());
+        quizQuestionRepository.deleteAllByQuizId(toUpdate.getId());
+        Quiz quiz = updateQuizFromDto(toUpdate, toUpdate.getId());
+        List<QuizQuestion> updatedQuestions = quizQuestionRepository.saveAll(mapQuestionsDtoListToQuestionEntities(toUpdate.getQuizQuestionDtos(), toUpdate.getId()));
+        return mapCreatedOrUpdatedQuizToDto(quiz, updatedQuestions);
     }
 
     public boolean isQuizExists(Long id) {
@@ -87,6 +80,32 @@ public class QuizService {
                 LocalDateTime.now(),
                 null,
                 null
+        );
+    }
+
+    private Quiz updateQuizFromDto(SingleQuizDto singleQuizDto, Long id) {
+        return new Quiz(
+                id,
+                singleQuizDto.getDescription(),
+                singleQuizDto.getQuizType(),
+                singleQuizDto.getMinScore(),
+                LocalDateTime.now(),
+                null,
+                null
+        );
+    }
+
+    private SingleQuizDto mapCreatedOrUpdatedQuizToDto(Quiz quiz, List<QuizQuestion> questions) {
+        return singleQuizDtoMapper.mapToDto(
+                new Quiz(
+                        quiz.getId(),
+                        quiz.getDescription(),
+                        quiz.getQuizType(),
+                        quiz.getMinScore(),
+                        quiz.getCreated(),
+                        questions,
+                        null
+                )
         );
     }
 }

@@ -5,15 +5,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.afranaso.quizzes.dto.*;
+import pl.afranaso.quizzes.dto.QuizDto;
+import pl.afranaso.quizzes.dto.QuizDtoMapper;
+import pl.afranaso.quizzes.dto.SingleQuizDto;
+import pl.afranaso.quizzes.dto.SingleQuizDtoMapper;
 import pl.afranaso.quizzes.model.Quiz;
 import pl.afranaso.quizzes.service.QuizService;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/quizzes")
@@ -23,7 +23,6 @@ public class QuizController {
     private final QuizService quizService;
     private final QuizDtoMapper quizDtoMapper;
     private final SingleQuizDtoMapper singleQuizDtoMapper;
-    private final QuizQuestionDtoMapper quizQuestionDtoMapper;
 
     @GetMapping
     public Page<QuizDto> getQuizzes(Pageable pageable) {
@@ -44,12 +43,11 @@ public class QuizController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Quiz> updateQuiz(@RequestBody @Valid SingleQuizDto singleQuizDto, @PathVariable Long id) {
+    public ResponseEntity<SingleQuizDto> updateQuiz(@RequestBody @Valid SingleQuizDto singleQuizDto, @PathVariable Long id) {
         if (!quizService.isQuizExists(id) || !id.equals(singleQuizDto.getId())) {
             return ResponseEntity.notFound().build();
         }
-        Quiz quiz = createQuizFromDtoToCreateOrUpdate(singleQuizDto, id);
-        return ResponseEntity.ok(quizService.updateQuiz(quiz));
+        return ResponseEntity.ok(quizService.updateQuiz(singleQuizDto));
     }
 
     @DeleteMapping("/{id}")
@@ -57,17 +55,4 @@ public class QuizController {
         quizService.deleteQuiz(id);
     }
 
-    private Quiz createQuizFromDtoToCreateOrUpdate(SingleQuizDto singleQuizDto, Long id) {
-        return new Quiz(
-                id,
-                singleQuizDto.getDescription(),
-                singleQuizDto.getQuizType(),
-                singleQuizDto.getMinScore(),
-                LocalDateTime.now(),
-                singleQuizDto.getQuizQuestionDtos().stream()
-                        .map(quizQuestionDtoMapper::mapDtoToEntity)
-                        .collect(Collectors.toList()),
-                new ArrayList<>()
-        );
-    }
 }

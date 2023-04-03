@@ -11,4 +11,7 @@ public interface QuizQuestionRepository extends JpaRepository<QuizQuestion, Long
 
     @Override
     <S extends QuizQuestion> List<S> saveAll(Iterable<S> entities);
+
+    void deleteAllByQuizId(Long quizId);
+
 }
