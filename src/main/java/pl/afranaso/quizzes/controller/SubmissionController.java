@@ -1,6 +1,8 @@
 package pl.afranaso.quizzes.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.afranaso.quizzes.dto.SingleQuizDto;
@@ -21,6 +23,11 @@ public class SubmissionController {
     public ResponseEntity<Submission> getSingleSubmission(@PathVariable long id) {
         Optional<Submission> submission = submissionService.getSubmission(id);
         return submission.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("quizz/{id}")
+    public Page<Submission> getQuizSubmissions(@PathVariable Long id, Pageable pageable) {
+        return submissionService.getQuizSubmissions(id, pageable);
     }
 
     @PostMapping

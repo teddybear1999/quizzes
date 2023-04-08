@@ -1,6 +1,8 @@
 package pl.afranaso.quizzes.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.afranaso.quizzes.dto.QuizQuestionDto;
 import pl.afranaso.quizzes.dto.SingleQuizDto;
@@ -21,6 +23,10 @@ public class SubmissionService {
 
     private final SubmissionRepository submissionRepository;
     private final QuizService quizService;
+
+    public Page<Submission> getQuizSubmissions(Long id, Pageable pageable) {
+        return submissionRepository.findAllByQuizId(id, pageable);
+    }
 
     public Optional<Submission> getSubmission(long id) {
         return submissionRepository.findById(id);
