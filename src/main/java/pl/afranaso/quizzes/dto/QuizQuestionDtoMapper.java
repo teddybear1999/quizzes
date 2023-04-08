@@ -8,6 +8,8 @@ import pl.afranaso.quizzes.model.QuizQuestion;
 @RequiredArgsConstructor
 public class QuizQuestionDtoMapper implements Mapper<QuizQuestion, QuizQuestionDto> {
 
+    private final Long EMPTY_ID = null;
+
     @Override
     public QuizQuestionDto mapToDto(QuizQuestion quizQuestion) {
         return QuizQuestionDto.builder()
@@ -18,7 +20,7 @@ public class QuizQuestionDtoMapper implements Mapper<QuizQuestion, QuizQuestionD
                 .optionB(quizQuestion.getOptionB())
                 .optionC(quizQuestion.getOptionC())
                 .optionD(quizQuestion.getOptionD())
-                .answer(0)
+                .answer(1)
                 .build();
     }
 
@@ -33,5 +35,31 @@ public class QuizQuestionDtoMapper implements Mapper<QuizQuestion, QuizQuestionD
                 .optionD(quizQuestion.getOptionD())
                 .answer(quizQuestion.getAnswer())
                 .build();
+    }
+
+    public QuizQuestion mapDtoToEntity(QuizQuestionDto quizQuestionDto) {
+        return new QuizQuestion(
+                quizQuestionDto.getId(),
+                quizQuestionDto.getQuizId(),
+                quizQuestionDto.getContent(),
+                quizQuestionDto.getOptionA(),
+                quizQuestionDto.getOptionB(),
+                quizQuestionDto.getOptionC(),
+                quizQuestionDto.getOptionD(),
+                quizQuestionDto.getAnswer()
+        );
+    }
+
+    public QuizQuestion mapDtoToEntity(QuizQuestionDto quizQuestionDto, Long id) {
+        return new QuizQuestion(
+                EMPTY_ID,
+                id,
+                quizQuestionDto.getContent(),
+                quizQuestionDto.getOptionA(),
+                quizQuestionDto.getOptionB(),
+                quizQuestionDto.getOptionC(),
+                quizQuestionDto.getOptionD(),
+                quizQuestionDto.getAnswer()
+        );
     }
 }

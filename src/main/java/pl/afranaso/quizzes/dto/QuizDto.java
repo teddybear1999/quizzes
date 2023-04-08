@@ -8,7 +8,7 @@ import pl.afranaso.quizzes.model.QuizType;
 @Builder
 public class QuizDto {
 
-    private long id;
+    private Long id;
     private String description;
     private QuizType quizType;
     private int minScore;

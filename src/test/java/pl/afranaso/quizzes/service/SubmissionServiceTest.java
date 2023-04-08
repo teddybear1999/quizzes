@@ -49,7 +49,6 @@ class SubmissionServiceTest {
 
         long id = 13L;
         int minScore = 2;
-        long passedCounter = 9L, failedAttemptsCounter = 10;
         QuizType quizType = QuizType.IT;
         String description = "description";
         LocalDateTime localDateTime = LocalDateTime.now();
@@ -66,16 +65,7 @@ class SubmissionServiceTest {
                 new QuizQuestion(4L, id, "", "", "", "", "", 4)
         );
 
-        Quiz quiz = new Quiz(
-                id,
-                description,
-                quizType,
-                minScore,
-                passedCounter,
-                failedAttemptsCounter,
-                localDateTime,
-                questions
-        );
+        Quiz quiz = new Quiz(id, description, quizType, minScore, LocalDateTime.now(), questions, null);
 
         SingleQuizDto singleQuizDto = SingleQuizDto.builder()
                 .id(id)
