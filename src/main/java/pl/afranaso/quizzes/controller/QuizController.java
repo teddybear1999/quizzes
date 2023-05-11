@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pl.afranaso.quizzes.dto.QuizDto;
 import pl.afranaso.quizzes.dto.QuizDtoMapper;
@@ -17,8 +18,7 @@ import java.util.Optional;
 
 import static pl.afranaso.quizzes.dto.validation.SingleQuizDtoValidator.validateSingleQuizDtoMinPoints;
 
-@RestController
-@RequestMapping("/quizzes")
+@Controller
 @RequiredArgsConstructor
 public class QuizController {
 
@@ -27,25 +27,34 @@ public class QuizController {
     private final SingleQuizDtoMapper singleQuizDtoMapper;
 
     @GetMapping
+    public String getHomePage() {
+        return "index";
+    }
+
+    @GetMapping("/quizzes")
+    @ResponseBody
     public Page<QuizDto> getQuizzes(Pageable pageable) {
         return quizService.getQuizzes(pageable)
                 .map(quizDtoMapper::mapToDto);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/quizzes/{id}")
+    @ResponseBody
     public ResponseEntity<SingleQuizDto> getSingleQuiz(@PathVariable long id) {
         Optional<Quiz> quiz = quizService.getQuiz(id);
         return quiz.map(value -> ResponseEntity.ok(singleQuizDtoMapper.mapToDto(value)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping("/quizzes")
+    @ResponseBody
     public SingleQuizDto createQuiz(@RequestBody @Valid SingleQuizDto singleQuizDto) {
         validateSingleQuizDtoMinPoints(singleQuizDto);
         return quizService.createQuiz(singleQuizDto);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/quizzes/{id}")
+    @ResponseBody
     public ResponseEntity<SingleQuizDto> updateQuiz(@RequestBody @Valid SingleQuizDto singleQuizDto, @PathVariable Long id) {
         if (!quizService.isQuizExists(id) || !id.equals(singleQuizDto.getId())) {
             return ResponseEntity.notFound().build();
@@ -54,7 +63,8 @@ public class QuizController {
         return ResponseEntity.ok(quizService.updateQuiz(singleQuizDto));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/quizzes/{id}")
+    @ResponseBody
     public void deleteQuiz(@PathVariable Long id) {
         quizService.deleteQuiz(id);
     }
