@@ -28,7 +28,7 @@ public class QuizController {
 
     @GetMapping
     public String getHomePage() {
-        return "index";
+        return "homepage";
     }
 
     @GetMapping("/quizzes")
