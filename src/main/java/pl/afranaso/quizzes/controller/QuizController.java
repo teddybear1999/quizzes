@@ -1,10 +1,13 @@
 package pl.afranaso.quizzes.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.afranaso.quizzes.dto.QuizDto;
 import pl.afranaso.quizzes.dto.QuizDtoMapper;
@@ -25,6 +28,10 @@ public class QuizController {
     private final QuizService quizService;
     private final QuizDtoMapper quizDtoMapper;
     private final SingleQuizDtoMapper singleQuizDtoMapper;
+    @Value("${spring.data.web.pageable.default-page-size}")
+    private int defaultPageSize;
+    @Value("${spring.data.web.pageable.max-page-size}")
+    private int maxPageSize;
 
     @GetMapping
     public String getHomePage() {
@@ -32,10 +39,13 @@ public class QuizController {
     }
 
     @GetMapping("/quizzes")
-    @ResponseBody
-    public Page<QuizDto> getQuizzes(Pageable pageable) {
-        return quizService.getQuizzes(pageable)
-                .map(quizDtoMapper::mapToDto);
+    public String getQuizzes(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
+                             @RequestParam(name = "size", defaultValue = "10") int size) {
+        size = Math.min(size, maxPageSize);
+        Pageable pageable = PageRequest.of(page, size);
+        Page<QuizDto> quizzesPage = quizService.getQuizzes(pageable).map(quizDtoMapper::mapToDto);
+        model.addAttribute("quizzesPage", quizzesPage);
+        return "quizzes";
     }
 
     @GetMapping("/quizzes/{id}")
