@@ -1,13 +1,15 @@
 package pl.afranaso.quizzes.dto;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
+@Setter
 @Builder
 public class QuizQuestionDto {
 

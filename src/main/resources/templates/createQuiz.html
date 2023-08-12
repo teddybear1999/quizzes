@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/createQuizstyle.css}" type="text/css">
+    <title>Create Quiz</title>
+    <script>
+        function addQuestion() {
+            let questionsContainer = document.getElementById('questionsContainer');
+            let questionCount = questionsContainer.childElementCount;
+
+            let questionDiv = document.createElement('div');
+            questionDiv.innerHTML = `
+                <h3>Question ${questionCount + 1}</h3>
+                <input type="text" name="quizQuestionDtos[${questionCount}].content" placeholder="Question Content"/>
+                <input type="text" name="quizQuestionDtos[${questionCount}].optionA" placeholder="Option A"/>
+                <input type="text" name="quizQuestionDtos[${questionCount}].optionB" placeholder="Option B"/>
+                <input type="text" name="quizQuestionDtos[${questionCount}].optionC" placeholder="Option C"/>
+                <input type="text" name="quizQuestionDtos[${questionCount}].optionD" placeholder="Option D"/>
+                <input type="text" name="quizQuestionDtos[${questionCount}].answer" placeholder="Answer (e.g. 1 for Option A)"/>
+            `;
+
+            questionsContainer.appendChild(questionDiv);
+        }
+    </script>
+</head>
+<body>
+
+<form th:action="@{/quizzes/create}" th:object="${singleQuizDto}" method="post" class="form-container">
+
+    <label for="description" class="form-label">Enter the description of your quiz (minimum 10 characters):</label>
+    <textarea id="description" th:field="*{description}" rows="3" placeholder="Description of your quiz"
+              class="form-textarea"></textarea>
+
+    <label for="quizType" class="form-label">Choose the type of your quiz:</label>
+    <select id="quizType" th:field="*{quizType}" class="form-select">
+        <option th:each="type : ${allQuizTypes}" th:value="${type}" th:text="${type}"></option>
+    </select>
+
+    <label for="minScore" class="form-label">Enter the minimum score required to pass the quiz (0-100):</label>
+    <input type="number" id="minScore" th:field="*{minScore}" class="form-input" min="0" max="100"/>
+    <br/><br/>
+
+    <h4>Add your questions below:</h4>
+
+    <div id="questionsContainer" class="question-container">
+        <!-- Existing questions will be populated here -->
+    </div>
+
+    <button type="button" onclick="addQuestion()" class="form-button form-button-add">Add Question</button>
+    <button type="submit" class="form-button form-button-submit">Create Quiz</button>
+</form>
+
+
+</body>
+</html>

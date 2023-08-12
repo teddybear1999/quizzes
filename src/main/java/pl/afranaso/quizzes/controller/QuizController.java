@@ -8,12 +8,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.afranaso.quizzes.dto.QuizDto;
 import pl.afranaso.quizzes.dto.QuizDtoMapper;
 import pl.afranaso.quizzes.dto.SingleQuizDto;
 import pl.afranaso.quizzes.dto.SingleQuizDtoMapper;
 import pl.afranaso.quizzes.model.Quiz;
+import pl.afranaso.quizzes.model.QuizType;
 import pl.afranaso.quizzes.service.QuizService;
 
 import javax.validation.Valid;
@@ -56,11 +58,22 @@ public class QuizController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/quizzes")
-    @ResponseBody
-    public SingleQuizDto createQuiz(@RequestBody @Valid SingleQuizDto singleQuizDto) {
+    @GetMapping("/quizzes/create")
+    public String createQuizForm(Model model) {
+        model.addAttribute("allQuizTypes", QuizType.values());
+        model.addAttribute("singleQuizDto", new SingleQuizDto());
+        return "createQuiz";
+    }
+
+    @PostMapping("/quizzes/create")
+    public String createQuizSubmit(@ModelAttribute @Valid SingleQuizDto singleQuizDto, BindingResult result) {
+        if (result.hasErrors()) {
+            System.out.println(result.getAllErrors());
+            return "redirect:/quizzes/create";
+        }
         validateSingleQuizDtoMinPoints(singleQuizDto);
-        return quizService.createQuiz(singleQuizDto);
+        quizService.createQuiz(singleQuizDto);
+        return "redirect:/quizzes";
     }
 
     @PutMapping("/quizzes/{id}")
