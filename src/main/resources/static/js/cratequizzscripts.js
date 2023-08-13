@@ -73,6 +73,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         const questions = document.querySelectorAll("#questionsContainer > div");
+
+        const noQuestionsError = 'Number of questions should be greater than 0!';
+        if (questions.length === 0) {
+            alert(noQuestionsError);
+            event.preventDefault();
+        }
+
         for (let question of questions) {
             const error = validateQuestionFields(question);
             if (error) {

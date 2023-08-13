@@ -21,7 +21,7 @@ public class SingleQuizDto {
     private String description;
     @NotNull
     private QuizType quizType;
-    @Positive
+    @Min(0)
     @Max(100)
     private int minScore;
     @NotNull
