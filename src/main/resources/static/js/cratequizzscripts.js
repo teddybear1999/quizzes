@@ -5,7 +5,7 @@ function addQuestion() {
     let questionDiv = document.createElement('div');
     questionDiv.innerHTML = `
         <h3>Question ${questionCount + 1}</h3>
-        <input type="text" name="quizQuestionDtos[${questionCount}].content" placeholder="Question Content"/>
+        <input type="text" name="quizQuestionDtos[${questionCount}].content" placeholder="Question Content" style="width: 100%;" />
         <input type="text" name="quizQuestionDtos[${questionCount}].optionA" placeholder="Option A"/>
         <input type="text" name="quizQuestionDtos[${questionCount}].optionB" placeholder="Option B"/>
         <input type="text" name="quizQuestionDtos[${questionCount}].optionC" placeholder="Option C"/>
