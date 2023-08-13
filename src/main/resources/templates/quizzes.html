@@ -26,6 +26,7 @@
             <thead>
             <tr>
                 <th>Quiz id</th>
+                <th>Quiz type</th>
                 <th>Quiz description</th>
             </tr>
             </thead>
@@ -33,6 +34,10 @@
             <tr th:each="quiz : ${quizzesPage.content}">
                 <td>
                     <a th:href="@{/quizzes/{id}(id=${quiz.getId()})}" th:text="${quiz.getId()}"
+                       style="display: block;"></a>
+                </td>
+                <td>
+                    <a th:href="@{/quizzes/{id}(id=${quiz.getId()})}" th:text="${quiz.getQuizType()}"
                        style="display: block;"></a>
                 </td>
                 <td>
