@@ -3,25 +3,6 @@
 <head>
     <link rel="stylesheet" th:href="@{/css/createQuizstyle.css}" type="text/css">
     <title>Create Quiz</title>
-    <script>
-        function addQuestion() {
-            let questionsContainer = document.getElementById('questionsContainer');
-            let questionCount = questionsContainer.childElementCount;
-
-            let questionDiv = document.createElement('div');
-            questionDiv.innerHTML = `
-                <h3>Question ${questionCount + 1}</h3>
-                <input type="text" name="quizQuestionDtos[${questionCount}].content" placeholder="Question Content"/>
-                <input type="text" name="quizQuestionDtos[${questionCount}].optionA" placeholder="Option A"/>
-                <input type="text" name="quizQuestionDtos[${questionCount}].optionB" placeholder="Option B"/>
-                <input type="text" name="quizQuestionDtos[${questionCount}].optionC" placeholder="Option C"/>
-                <input type="text" name="quizQuestionDtos[${questionCount}].optionD" placeholder="Option D"/>
-                <input type="text" name="quizQuestionDtos[${questionCount}].answer" placeholder="Answer (e.g. 1 for Option A)"/>
-            `;
-
-            questionsContainer.appendChild(questionDiv);
-        }
-    </script>
 </head>
 <body>
 
@@ -50,6 +31,6 @@
     <button type="submit" class="form-button form-button-submit">Create Quiz</button>
 </form>
 
-
+<script src="/js/cratequizzscripts.js"></script>
 </body>
 </html>
