@@ -86,10 +86,10 @@ public class QuizController {
         return ResponseEntity.ok(quizService.updateQuiz(singleQuizDto));
     }
 
-    @DeleteMapping("/quizzes/{id}")
-    @ResponseBody
-    public void deleteQuiz(@PathVariable Long id) {
+    @DeleteMapping("/quizzes/delete/{id}")
+    public String deleteQuiz(@PathVariable Long id) {
         quizService.deleteQuiz(id);
+        return "redirect:/quizzes";
     }
 
 }
