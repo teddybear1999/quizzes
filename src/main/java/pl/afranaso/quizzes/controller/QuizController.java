@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,12 +13,10 @@ import pl.afranaso.quizzes.dto.QuizDto;
 import pl.afranaso.quizzes.dto.QuizDtoMapper;
 import pl.afranaso.quizzes.dto.SingleQuizDto;
 import pl.afranaso.quizzes.dto.SingleQuizDtoMapper;
-import pl.afranaso.quizzes.model.Quiz;
 import pl.afranaso.quizzes.model.QuizType;
 import pl.afranaso.quizzes.service.QuizService;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 import static pl.afranaso.quizzes.dto.validation.SingleQuizDtoValidator.validateSingleQuizDtoMinPoints;
 
@@ -51,11 +48,10 @@ public class QuizController {
     }
 
     @GetMapping("/quizzes/{id}")
-    @ResponseBody
-    public ResponseEntity<SingleQuizDto> getSingleQuiz(@PathVariable long id) {
-        Optional<Quiz> quiz = quizService.getQuiz(id);
-        return quiz.map(value -> ResponseEntity.ok(singleQuizDtoMapper.mapToDto(value)))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public String getSingleQuiz(@PathVariable long id, Model model) {
+        SingleQuizDto singleQuizDto = singleQuizDtoMapper.mapToDto(quizService.getQuiz(id).orElseThrow());
+        model.addAttribute("singleQuizDto", singleQuizDto);
+        return "quiz";
     }
 
     @GetMapping("/quizzes/create")
@@ -74,16 +70,6 @@ public class QuizController {
         validateSingleQuizDtoMinPoints(singleQuizDto);
         quizService.createQuiz(singleQuizDto);
         return "redirect:/quizzes";
-    }
-
-    @PutMapping("/quizzes/{id}")
-    @ResponseBody
-    public ResponseEntity<SingleQuizDto> updateQuiz(@RequestBody @Valid SingleQuizDto singleQuizDto, @PathVariable Long id) {
-        if (!quizService.isQuizExists(id) || !id.equals(singleQuizDto.getId())) {
-            return ResponseEntity.notFound().build();
-        }
-        validateSingleQuizDtoMinPoints(singleQuizDto);
-        return ResponseEntity.ok(quizService.updateQuiz(singleQuizDto));
     }
 
     @DeleteMapping("/quizzes/delete/{id}")

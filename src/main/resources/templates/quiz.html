@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+    <link rel="stylesheet" th:href="@{/css/quizstyle.css}"/>
+</head>
+<body>
+<div class="quiz-container">
+    <h2>Quiz <span th:text="${singleQuizDto.id}"></span></h2>
+    <form action="#" method="post">
+        <h3 th:text="${singleQuizDto.description}"></h3>
+        <input type="hidden" th:value="${singleQuizDto.id}" name="quizId"/>
+        <ol>
+            <li th:each="question : ${singleQuizDto.quizQuestionDtos}">
+                <p th:text="${question.content}"></p>
+                <div>
+                    <label>
+                        <input type="radio" th:value="A" th:name="${question.id}" th:checked="${question.answer == 1}"/>
+                        <span th:text="${question.optionA}"></span>
+                    </label>
+                    <label>
+                        <input type="radio" th:value="B" th:name="${question.id}" th:checked="${question.answer == 2}"/>
+                        <span th:text="${question.optionB}"></span>
+                    </label>
+                    <label>
+                        <input type="radio" th:value="C" th:name="${question.id}" th:checked="${question.answer == 3}"/>
+                        <span th:text="${question.optionC}"></span>
+                    </label>
+                    <label>
+                        <input type="radio" th:value="D" th:name="${question.id}" th:checked="${question.answer == 4}"/>
+                        <span th:text="${question.optionD}"></span>
+                    </label>
+                </div>
+            </li>
+        </ol>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+</body>
+</html>

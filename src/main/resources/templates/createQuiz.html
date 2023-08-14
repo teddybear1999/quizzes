@@ -17,7 +17,6 @@
         <a th:href="@{/}">Home</a>
         <a th:href="@{/quizzes}">Quizzes</a>
         <a class="mainpage" th:href="@{/quizzes/create}">Create Quiz</a>
-        <a href="#">Edit Quiz</a>
     </div>
     <main id="main">
         <form th:action="@{/quizzes/create}" th:object="${singleQuizDto}" method="post" class="form-container">
