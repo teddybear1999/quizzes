@@ -3,8 +3,8 @@ package pl.afranaso.quizzes.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.afranaso.quizzes.dto.SingleQuizDto;
@@ -12,7 +12,7 @@ import pl.afranaso.quizzes.model.Submission;
 import pl.afranaso.quizzes.service.SubmissionService;
 
 import javax.validation.Valid;
-import java.util.Optional;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,10 +21,13 @@ public class SubmissionController {
     private final SubmissionService submissionService;
 
     @GetMapping("submission/{id}")
-    @ResponseBody
-    public ResponseEntity<Submission> getSingleSubmission(@PathVariable long id) {
-        Optional<Submission> submission = submissionService.getSubmission(id);
-        return submission.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public String getSingleSubmission(@PathVariable long id, Model model) {
+        Submission submission = submissionService.getSubmission(id).orElseThrow();
+        model.addAttribute("submission", submission);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String formattedDateTime = submission.getSubmissionTime().format(formatter);
+        model.addAttribute("formattedDateTime", formattedDateTime);
+        return "submission";
     }
 
     @GetMapping("/quizz/{id}")
