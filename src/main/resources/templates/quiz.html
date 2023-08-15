@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" lang="en">
+<head>
+    <link rel="stylesheet" th:href="@{/css/quizstyle.css}" type="text/css">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" th:href="@{/images/quizlogo.svg}" sizes="32x32" type="image/svg+xml">
+    <title>Solve quiz</title>
+</head>
+
+<body>
+<div id="container">
+    <header id="header"><span>Quizzes</span></header>
+    <div id="navbar">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/quizzes}">Quizzes</a>
+        <a th:href="@{/quizzes/create}">Create Quiz</a>
+        <a class="mainpage" th:href="@{/quizzes/create}">Solve Quiz <span th:text="${singleQuizDto.getId()}"></span></a>
+    </div>
+    <main id="main">
+        <article id="content">
+            <div class="quiz-container">
+                <h2>Quiz <span th:text="${singleQuizDto.id}"></span></h2>
+                <form th:action="@{/submission/create}" th:object="${singleQuizDto}" method="post">
+                    <h3 th:text="${singleQuizDto.description}"></h3>
+
+                    <input type="hidden" th:value="${singleQuizDto.id}" name="id"/>
+
+                    <input type="hidden" th:value="${singleQuizDto.description}" name="description"/>
+
+                    <input type="hidden" th:value="${singleQuizDto.quizType}" name="quizType"/>
+
+                    <input type="hidden" th:value="${singleQuizDto.minScore}" name="minScore"/>
+
+                    <ol>
+                        <li th:each="question, questionStat : ${singleQuizDto.quizQuestionDtos}">
+                            <p th:text="${question.content}"></p>
+                            <div>
+                                <input type="hidden" th:value="${question.id}"
+                                       th:name="'quizQuestionDtos[' + ${questionStat.index} + '].id'"/>
+                                <input type="hidden" th:value="${question.quizId}"
+                                       th:name="'quizQuestionDtos[' + ${questionStat.index} + '].quizId'"/>
+
+                                <label>
+                                    <input type="radio" th:value="1"
+                                           th:name="'quizQuestionDtos[' + ${questionStat.index} + '].answer'"
+                                           th:checked="${question.answer == 1}"/>
+                                    <span th:text="${question.optionA}"></span>
+                                </label>
+                                <label>
+                                    <input type="radio" th:value="2"
+                                           th:name="'quizQuestionDtos[' + ${questionStat.index} + '].answer'"
+                                           th:checked="${question.answer == 2}"/>
+                                    <span th:text="${question.optionB}"></span>
+                                </label>
+                                <label>
+                                    <input type="radio" th:value="3"
+                                           th:name="'quizQuestionDtos[' + ${questionStat.index} + '].answer'"
+                                           th:checked="${question.answer == 3}"/>
+                                    <span th:text="${question.optionC}"></span>
+                                </label>
+                                <label>
+                                    <input type="radio" th:value="4"
+                                           th:name="'quizQuestionDtos[' + ${questionStat.index} + '].answer'"
+                                           th:checked="${question.answer == 4}"/>
+                                    <span th:text="${question.optionD}"></span>
+                                </label>
+                            </div>
+                        </li>
+                    </ol>
+                    <button type="submit">Submit</button>
+                </form>
+
+            </div>
+        </article>
+    </main>
+    <footer id="footer">
+        <span>
+            Quizzes - Spring Boot project with Thymeleaf<br>
+            Artur Franasowicz
+        </span>
+    </footer>
+</div>
+</body>
+</html>

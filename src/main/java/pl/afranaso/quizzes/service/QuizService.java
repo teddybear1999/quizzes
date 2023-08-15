@@ -62,6 +62,7 @@ public class QuizService {
     @Transactional
     public void deleteQuiz(Long id) {
         quizRepository.deleteById(id);
+        submissionRepository.deleteAllByQuizId(id);
     }
 
     private List<QuizQuestion> mapQuestionsDtoListToQuestionEntities(List<QuizQuestionDto> quizQuestionDtos, Long id) {

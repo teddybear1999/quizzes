@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" lang="en">
+<head>
+    <link rel="stylesheet" th:href="@{/css/createQuizstyle.css}" type="text/css">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" th:href="@{/images/quizlogo.svg}" sizes="32x32" type="image/svg+xml">
+    <title>Create Quiz</title>
+</head>
+
+<body>
+<div id="container">
+    <header id="header"><span>Quizzes</span></header>
+    <div id="navbar">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/quizzes}">Quizzes</a>
+        <a class="mainpage" th:href="@{/quizzes/create}">Create Quiz</a>
+    </div>
+    <main id="main">
+        <form th:action="@{/quizzes/create}" th:object="${singleQuizDto}" method="post" class="form-container">
+            <label for="description" class="form-label">Enter the description of your quiz (minimum 10
+                characters):</label>
+            <textarea id="description" th:field="*{description}" rows="3" placeholder="Description of your quiz"
+                      class="form-textarea"></textarea>
+
+            <label for="quizType" class="form-label">Choose the type of your quiz:</label>
+            <select id="quizType" th:field="*{quizType}" class="form-select">
+                <option th:each="type : ${allQuizTypes}" th:value="${type}" th:text="${type}"></option>
+            </select>
+
+            <label for="minScore" class="form-label">Enter the minimum score required to pass the quiz (0-100):</label>
+            <input type="number" id="minScore" th:field="*{minScore}" class="form-input" min="0" max="100"/>
+            <br/><br/>
+
+            <h4>Add your questions below:</h4>
+            <div id="questionsContainer" class="question-container">
+                <!-- Existing questions will be populated here -->
+            </div>
+
+            <button type="button" onclick="addQuestion()" class="form-button form-button-add">Add Question</button>
+            <button type="submit" class="form-button form-button-submit">Create Quiz</button>
+        </form>
+    </main>
+    <footer id="footer">
+        <span>
+            Quizzes - Spring Boot project with Thymeleaf<br>
+            Artur Franasowicz
+        </span>
+    </footer>
+</div>
+<script src="/js/cratequizzscripts.js"></script>
+</body>
+</html>

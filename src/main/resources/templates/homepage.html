@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" lang="en">
+<head>
+    <link rel="stylesheet" th:href="@{/css/homepagestyle.css}" type="text/css">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" th:href="@{/images/quizlogo.svg}" sizes="32x32" type="image/svg+xml">
+    <title>Quizzes Thymeleaf App</title>
+</head>
+
+<body>
+<div id="container">
+    <header id="header"><span>Quizzes</span></header>
+    <div id="navbar">
+        <a class="mainpage" th:href="@{/}">Home</a>
+        <a th:href="@{/quizzes}">Quizzes</a>
+        <a th:href="@{/quizzes/create}">Create Quiz</a>
+    </div>
+    <main id="main">
+        <article id="content">
+            <section>
+                <p id="p1">
+                    <img th:src="@{/images/quiz_image.svg}" alt="logo" class="logoImage">
+                    Ready to put your knowledge to the test? Dive into our quizzes now!
+                </p>
+            </section>
+        </article>
+    </main>
+    <footer id="footer">
+        <span>
+            Quizzes - Spring Boot project with Thymeleaf<br>
+            Artur Franasowicz
+        </span>
+    </footer>
+</div>
+</body>
+</html>

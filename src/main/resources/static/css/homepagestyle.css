@@ -1,0 +1,104 @@
+#container {
+    border: 1px solid grey;
+    width: 1400px;
+    margin: 50px auto;
+}
+
+#main {
+    background-color: greenyellow;
+    font-size: 0;
+}
+
+#header {
+    text-align: center;
+    font-size: 250%;
+    color: brown;
+    background-color: antiquewhite;
+}
+
+#header > span {
+    padding: 25px;
+    display: block;
+}
+
+#navbar {
+    text-align: center;
+    font-size: 150%;
+    padding: 15px;
+    background-color: aliceblue;
+    border-top: 2px dashed grey;
+    border-bottom: 2px dashed grey;
+}
+
+#navbar a {
+    margin: 0 60px;
+}
+
+#content {
+    display: inline-block;
+    width: 1200px;
+    height: auto;
+    font-size: 15px;
+    text-align: justify;
+    background-color: ivory;
+}
+
+#sidemenu {
+    line-height: 200%;
+    display: inline-block;
+    width: 200px;
+    float: right;
+    font-size: 15px;
+}
+
+#p1 {
+    box-sizing: border-box;
+    width: 100%;
+    line-height: 150%;
+    padding: 30px;
+}
+
+#p1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    line-height: 150%;
+    padding: 30px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #2a2a2a;
+}
+
+#footer {
+    border-top: 1px solid grey;
+    padding: 40px;
+    font-size: 18px;
+    text-align: center;
+    color: grey;
+    font-family: Verdana, serif;
+    font-style: italic;
+    background-color: aliceblue;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: deepskyblue;
+}
+
+.logoImage {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainpage {
+    background-color: red;
+    padding: 5px 10px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}

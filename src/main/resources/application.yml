@@ -8,10 +8,13 @@ spring:
   data:
     web:
       pageable:
-        default-page-size: 25
-        max-page-size: 100
+        default-page-size: 10
+        max-page-size: 10
   mvc:
     path match:
       matching-strategy: ant_path_matcher
+    hidden-method:
+      filter:
+        enabled: true
   liquibase:
     change-log: classpath:liquibase-changelog.xml

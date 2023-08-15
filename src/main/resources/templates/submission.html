@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" lang="en">
+<head>
+    <link rel="stylesheet" th:href="@{/css/submission.css}" type="text/css">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" th:href="@{/images/quizlogo.svg}" sizes="32x32" type="image/svg+xml">
+    <title th:text="'Quiz Submission - ID: ' + ${submission.id}">Quiz Submission</title>
+</head>
+
+<body>
+<div id="container">
+    <header id="header"><span>Quizzes</span></header>
+    <div id="navbar">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/quizzes}">Quizzes</a>
+        <a th:href="@{/quizzes/create}">Create Quiz</a>
+        <a class="mainpage" th:href="@{'/submission/' + ${submission.id}}">Quiz submission</a>
+    </div>
+    <main id="main">
+        <article id="content">
+            <div th:class="${submission.isQuizPassed} ? 'passed' : 'failed'">
+                <h1>Submission Details</h1>
+                <p>Quiz ID: <span th:text="${submission.quizId}"></span></p>
+                <p>Correct Answers: <span th:text="${submission.correctAnswers}"></span></p>
+                <p>Incorrect Answers: <span th:text="${submission.incorrectAnswers}"></span></p>
+                <p>Is Quiz Passed? <span th:text="${submission.isQuizPassed} ? 'Yes' : 'No'"></span></p>
+                <p>Submission Time: <span th:text="${formattedDateTime}"></span></p>
+            </div>
+        </article>
+    </main>
+    <footer id="footer">
+        <span>
+            Quizzes - Spring Boot project with Thymeleaf<br>
+            Artur Franasowicz
+        </span>
+    </footer>
+</div>
+</body>
+</html>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Submission</title>-->
+<!--    <link rel="stylesheet" th:href="@{/css/submission.css}"/>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div th:class="${submission.isQuizPassed} ? 'passed' : 'failed'">-->
+<!--    <h1>Submission Details</h1>-->
+<!--    <p>Quiz ID: <span th:text="${submission.quizId}"></span></p>-->
+<!--    <p>Correct Answers: <span th:text="${submission.correctAnswers}"></span></p>-->
+<!--    <p>Incorrect Answers: <span th:text="${submission.incorrectAnswers}"></span></p>-->
+<!--    <p>Is Quiz Passed? <span th:text="${submission.isQuizPassed} ? 'Yes' : 'No'"></span></p>-->
+<!--    <p>Submission Time: <span th:text="${formattedDateTime}"></span></p>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->

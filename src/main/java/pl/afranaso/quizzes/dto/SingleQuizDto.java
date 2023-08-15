@@ -1,7 +1,6 @@
 package pl.afranaso.quizzes.dto;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import pl.afranaso.quizzes.model.QuizType;
 
@@ -9,8 +8,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
+@Setter
 @Builder
+@ToString
 public class SingleQuizDto {
     private Long id;
     @NotBlank
@@ -18,7 +21,7 @@ public class SingleQuizDto {
     private String description;
     @NotNull
     private QuizType quizType;
-    @Positive
+    @Min(0)
     @Max(100)
     private int minScore;
     @NotNull

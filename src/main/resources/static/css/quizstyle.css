@@ -1,0 +1,134 @@
+#container {
+    border: 1px solid grey;
+    width: 1400px;
+    margin: 50px auto;
+}
+
+#main {
+    background-color: greenyellow;
+    font-size: 0;
+}
+
+#header {
+    text-align: center;
+    font-size: 250%;
+    color: brown;
+    background-color: antiquewhite;
+}
+
+#header > span {
+    padding: 25px;
+    display: block;
+}
+
+#navbar {
+    text-align: center;
+    font-size: 150%;
+    padding: 15px;
+    background-color: aliceblue;
+    border-top: 2px dashed grey;
+    border-bottom: 2px dashed grey;
+}
+
+#navbar a {
+    margin: 0 60px;
+}
+
+#content {
+    display: inline-block;
+    width: 1400px;
+    height: auto;
+    font-size: 15px;
+    text-align: justify;
+    background-color: ivory;
+}
+
+#p1 {
+    box-sizing: border-box;
+    width: 100%;
+    line-height: 150%;
+    padding: 30px;
+}
+
+#footer {
+    border-top: 1px solid grey;
+    padding: 40px;
+    font-size: 18px;
+    text-align: center;
+    color: grey;
+    font-family: Verdana, serif;
+    font-style: italic;
+    background-color: aliceblue;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: deepskyblue;
+}
+
+.logoImage {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainpage {
+    background-color: red;
+    padding: 5px 10px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.quiz-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+ol {
+    padding-left: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}

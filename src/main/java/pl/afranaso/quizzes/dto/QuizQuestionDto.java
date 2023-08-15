@@ -1,13 +1,16 @@
 package pl.afranaso.quizzes.dto;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
+@Setter
 @Builder
 public class QuizQuestionDto {
 
@@ -25,6 +28,7 @@ public class QuizQuestionDto {
     private String optionC;
     @NotBlank
     private String optionD;
-    @PositiveOrZero
+    @Min(1)
+    @Max(4)
     private int answer;
 }
