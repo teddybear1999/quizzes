@@ -23,30 +23,47 @@
         <article id="content">
             <div class="quiz-container">
                 <h2>Quiz <span th:text="${singleQuizDto.id}"></span></h2>
-                <form action="#" method="post">
+                <form th:action="@{/submission/create}" th:object="${singleQuizDto}" method="post">
                     <h3 th:text="${singleQuizDto.description}"></h3>
-                    <input type="hidden" th:value="${singleQuizDto.id}" name="quizId"/>
+
+                    <input type="hidden" th:value="${singleQuizDto.id}" name="id"/>
+
+                    <input type="hidden" th:value="${singleQuizDto.description}" name="description"/>
+
+                    <input type="hidden" th:value="${singleQuizDto.quizType}" name="quizType"/>
+
+                    <input type="hidden" th:value="${singleQuizDto.minScore}" name="minScore"/>
+
                     <ol>
-                        <li th:each="question : ${singleQuizDto.quizQuestionDtos}">
+                        <li th:each="question, questionStat : ${singleQuizDto.quizQuestionDtos}">
                             <p th:text="${question.content}"></p>
                             <div>
+                                <input type="hidden" th:value="${question.id}"
+                                       th:name="'quizQuestionDtos[' + ${questionStat.index} + '].id'"/>
+                                <input type="hidden" th:value="${question.quizId}"
+                                       th:name="'quizQuestionDtos[' + ${questionStat.index} + '].quizId'"/>
+
                                 <label>
-                                    <input type="radio" th:value="A" th:name="${question.id}"
+                                    <input type="radio" th:value="1"
+                                           th:name="'quizQuestionDtos[' + ${questionStat.index} + '].answer'"
                                            th:checked="${question.answer == 1}"/>
                                     <span th:text="${question.optionA}"></span>
                                 </label>
                                 <label>
-                                    <input type="radio" th:value="B" th:name="${question.id}"
+                                    <input type="radio" th:value="2"
+                                           th:name="'quizQuestionDtos[' + ${questionStat.index} + '].answer'"
                                            th:checked="${question.answer == 2}"/>
                                     <span th:text="${question.optionB}"></span>
                                 </label>
                                 <label>
-                                    <input type="radio" th:value="C" th:name="${question.id}"
+                                    <input type="radio" th:value="3"
+                                           th:name="'quizQuestionDtos[' + ${questionStat.index} + '].answer'"
                                            th:checked="${question.answer == 3}"/>
                                     <span th:text="${question.optionC}"></span>
                                 </label>
                                 <label>
-                                    <input type="radio" th:value="D" th:name="${question.id}"
+                                    <input type="radio" th:value="4"
+                                           th:name="'quizQuestionDtos[' + ${questionStat.index} + '].answer'"
                                            th:checked="${question.answer == 4}"/>
                                     <span th:text="${question.optionD}"></span>
                                 </label>
@@ -55,6 +72,7 @@
                     </ol>
                     <button type="submit">Submit</button>
                 </form>
+
             </div>
         </article>
     </main>
