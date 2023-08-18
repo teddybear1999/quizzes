@@ -2,7 +2,7 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:mysql://localhost:3306/quiz?useUnicode=true&serverTimezone=UTC
+    url: jdbc:mysql://db:3306/quiz?useUnicode=true&serverTimezone=UTC
     username: root
     password: password
   data:
@@ -18,3 +18,7 @@ spring:
         enabled: true
   liquibase:
     change-log: classpath:liquibase-changelog.xml
+  sql:
+    init:
+      mode:
+      continue-on-error: true
