@@ -81,3 +81,7 @@ This section describes the basic user interface and the primary endpoints of the
 3. **Create Quiz** - [http://localhost:8080/quizzes/create](http://localhost:8080/quizzes/create)
     - This page is dedicated to creating a new quiz.
     - It includes validation to ensure that the quiz details are correct and complete.
+
+## DB Schema
+
+![Schema of db](schema.png)
