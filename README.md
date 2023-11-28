@@ -48,30 +48,36 @@ Ensure that ports 8080 (for Spring) and 3306 (for MySQL) are free and not being 
 ### Running the Application Locally
 
 Navigate to the root directory of the project in the terminal and use the following command:
+
 ```bash
 docker-compose -f docker-compose-app-with-db.yml up -d
 ```
-or 
+
+or
+
 ```bash
 docker compose -f docker-compose-app-with-db.yml up -d
 ```
+
 Please wait a minute for the database and Spring application to start up, it may take about a minute.
 
 ### Database Connection
 
-To connect to the MySQL database, remember that the database is available on port 3306. The username is `root`, and the password is `password`. Ensure that this port is open and accessible for the application to connect to the database successfully.
+To connect to the MySQL database, remember that the database is available on port 3306. The username is `root`, and the
+password is `password`. Ensure that this port is open and accessible for the application to connect to the database
+successfully.
 
 ## Basic User Interface
 
 This section describes the basic user interface and the primary endpoints of the application:
 
 1. **Home Page** - [http://localhost:8080/](http://localhost:8080/)
-   - This is the main landing page of the application.
+    - This is the main landing page of the application.
 
 2. **View Quizzes** - [http://localhost:8080/quizzes](http://localhost:8080/quizzes)
-   - This page allows for browsing quizzes with pagination. 
-   - Features include the ability to start a quiz, check your performance, and delete a quiz.
+    - This page allows for browsing quizzes with pagination.
+    - Features include the ability to start a quiz, check your performance, and delete a quiz.
 
 3. **Create Quiz** - [http://localhost:8080/quizzes/create](http://localhost:8080/quizzes/create)
-   - This page is dedicated to creating a new quiz. 
-   - It includes validation to ensure that the quiz details are correct and complete.
+    - This page is dedicated to creating a new quiz.
+    - It includes validation to ensure that the quiz details are correct and complete.
